@@ -22,6 +22,7 @@ Content-Type: application/json
 ### Find a particular user with given ID
 GET http://localhost:3000/auth/610e2c1758b5ae1c88e7b0b5
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMGUyYzE3NThiNWFlMWM4OGU3YjBiNSIsImlhdCI6MTYyODM0MTE2NiwiZXhwIjoxNjI4MzQxMTY3fQ.KkpbtcxtINTlVGOKOTdmTiG6k_AUho8K4oKL-yAQtfM
+
 ### Delete a particular user with given ID
 DELETE http://localhost:3000/auth/610da939be606f4e946bc155
 
@@ -36,3 +37,8 @@ Content-Type: application/json
 
 ### Signout a user
 POST http://localhost:3000/auth/signout
+
+
+### Get current user
+GET http://localhost:3000/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMGUyYzE3NThiNWFlMWM4OGU3YjBiNSIsImlhdCI6MTYyODM0MTk1MiwiZXhwIjoxNjI4OTQ2NzUyfQ.yb2MK5MDHpg5c1n5H_0Kz7zFrDJw-N9UVNB_FGuPF3g

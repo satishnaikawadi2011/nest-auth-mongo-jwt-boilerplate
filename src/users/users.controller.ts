@@ -9,6 +9,8 @@ import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { SigninResponseDto } from './dtos/signin-response.dto';
 import { UserDto } from './dtos/user.dto';
 import { AuthGuard } from 'src/guards/auth.guard';
+import { CurrentUser } from './decorators/current-user.decorator';
+import { UserDocument } from './user.schema';
 
 @Controller('auth')
 export class UsersController {
@@ -24,6 +26,13 @@ export class UsersController {
 	@Serialize(SigninResponseDto)
 	signin(@Body() body: SigninUserDto) {
 		return this.authService.signin(body.username, body.password);
+	}
+
+	@Get('/me')
+	@UseGuards(AuthGuard)
+	@Serialize(UserDto)
+	whoAmI(@CurrentUser() user: UserDocument) {
+		return user;
 	}
 
 	@Get('/:id')
