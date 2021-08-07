@@ -1,0 +1,9 @@
+### Create a new todo
+POST http://localhost:3000/todos
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMGUyYzE3NThiNWFlMWM4OGU3YjBiNSIsImlhdCI6MTYyODM0MTk1MiwiZXhwIjoxNjI4OTQ2NzUyfQ.yb2MK5MDHpg5c1n5H_0Kz7zFrDJw-N9UVNB_FGuPF3g
+
+{
+    "title":"forth todo",
+    "description":"this is test description."
+}
