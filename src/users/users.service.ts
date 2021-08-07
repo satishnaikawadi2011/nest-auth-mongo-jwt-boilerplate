@@ -18,7 +18,7 @@ export class UsersService {
 		private authService: AuthService
 	) {}
 
-	create(createUserDto: CreateUserDto): Promise<User> {
+	create(createUserDto: CreateUserDto): Promise<UserDocument> {
 		const user = new this.model(createUserDto);
 
 		return user.save();

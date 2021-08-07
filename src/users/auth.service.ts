@@ -3,6 +3,7 @@ import { BadRequestException, forwardRef, Inject, Injectable, NotFoundException 
 import { UsersService } from './users.service';
 import { randomBytes, scrypt as _scrypt } from 'crypto';
 import { promisify } from 'util';
+import { JwtService } from '@nestjs/jwt';
 
 const scrypt = promisify(_scrypt);
 
@@ -10,7 +11,8 @@ const scrypt = promisify(_scrypt);
 export class AuthService {
 	constructor(
 		@Inject(forwardRef(() => UsersService))
-		private usersService: UsersService
+		private usersService: UsersService,
+		private jwtService: JwtService
 	) {}
 
 	async hashPassword(password: string): Promise<string> {
@@ -45,7 +47,9 @@ export class AuthService {
 
 		const user = await this.usersService.create({ email, username, password: hashedPassword });
 
-		return user;
+		const token = await this.jwtService.signAsync({ id: user._id });
+
+		return { user, token };
 	}
 
 	async signin(username: string, password: string) {
@@ -63,6 +67,8 @@ export class AuthService {
 			throw new BadRequestException('Invalid credentials !');
 		}
 
-		return user;
+		const token = await this.jwtService.signAsync({ id: user._id });
+
+		return { user, token };
 	}
 }
