@@ -3,8 +3,8 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "email":"mahi@test.com",
-    "username":"mahi",
+    "email":"saty@test.com",
+    "username":"saty",
     "password":"123456"
 }
 
@@ -15,12 +15,12 @@ Content-Type: application/json
 
 {
     "username":"mahi",
-    "password":"1234567"
+    "password":"123456"
 }
 
 
 ### Find a particular user with given ID
-GET http://localhost:3000/auth/610dab39ad0dae55245b9f36
+GET http://localhost:3000/auth/610e2c1758b5ae1c88e7b0b5
 
 
 ### Delete a particular user with given ID
