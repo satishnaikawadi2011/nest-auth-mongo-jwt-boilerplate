@@ -1,8 +1,9 @@
 import { CreateUserDto } from './dtos/create-user.dto';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from './user.schema';
+import { AuthService } from './auth.service';
 
 interface FindAttrs {
 	email: string;
@@ -11,7 +12,11 @@ interface FindAttrs {
 
 @Injectable()
 export class UsersService {
-	constructor(@InjectModel(User.name) private model: Model<UserDocument>) {}
+	constructor(
+		@InjectModel(User.name) private model: Model<UserDocument>,
+		@Inject(forwardRef(() => AuthService))
+		private authService: AuthService
+	) {}
 
 	create(createUserDto: CreateUserDto): Promise<User> {
 		const user = new this.model(createUserDto);
@@ -42,6 +47,9 @@ export class UsersService {
 		const user = await this.findOne(id);
 		if (!user) {
 			throw new NotFoundException('user not found!');
+		}
+		if (Object.keys(attrs).includes('password')) {
+			attrs.password = await this.authService.hashPassword(attrs.password);
 		}
 		Object.assign(user, attrs);
 		return user.save();

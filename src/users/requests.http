@@ -14,7 +14,7 @@ POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
-    "username":"saty",
+    "username":"mahi",
     "password":"123456"
 }
 
@@ -28,11 +28,11 @@ DELETE http://localhost:3000/auth/610da939be606f4e946bc155
 
 
 ### Update a particular user with given ID
-PATCH http://localhost:3000/auth/610dab39ad0dae55245b9f36
+PATCH http://localhost:3000/auth/610e2c1758b5ae1c88e7b0b5
 Content-Type: application/json
 
 {
-    "username":"usernameUpdated"
+    "password":"123456"
 }
 
 ### Signout a user

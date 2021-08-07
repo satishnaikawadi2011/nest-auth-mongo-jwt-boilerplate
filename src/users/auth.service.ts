@@ -1,5 +1,5 @@
 import { CreateUserDto } from './dtos/create-user.dto';
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { randomBytes, scrypt as _scrypt } from 'crypto';
 import { promisify } from 'util';
@@ -8,7 +8,10 @@ const scrypt = promisify(_scrypt);
 
 @Injectable()
 export class AuthService {
-	constructor(private usersService: UsersService) {}
+	constructor(
+		@Inject(forwardRef(() => UsersService))
+		private usersService: UsersService
+	) {}
 
 	async hashPassword(password: string): Promise<string> {
 		const salt = randomBytes(8).toString('hex');
@@ -17,7 +20,7 @@ export class AuthService {
 		return result;
 	}
 
-	async verifyPassword(hashedPassword: string, plainPassword: string): Promise<boolean> {
+	private async verifyPassword(hashedPassword: string, plainPassword: string): Promise<boolean> {
 		const [
 			salt,
 			storedHash
